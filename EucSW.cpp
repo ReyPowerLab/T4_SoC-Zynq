@@ -6,7 +6,7 @@
 using namespace std;
 
 
-void EucSW (T2 A[M], T2 B[M],T *C){
+void EucSW (T2 AB[M], T *C){
 
 	T delta, sumatoria = 0;
 
