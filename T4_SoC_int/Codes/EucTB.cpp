@@ -25,10 +25,12 @@ int main (){
 	T max = 100;
 	cout << "Data Number: ["<< M <<"]"  << endl;
 	for (int i=0; i<tests; i++){
-		genRandArray(min, max, M, AB);
+		genRandArray(min, max, 2*M, AB);
 	//	genRandArray(min, max, M, B);
 	//	T A[8]={1,2,3,4,5,6,7,8};
 	//	T B[8]={8,7,6,5,4,3,2,1};
+ 	//T AB[2*8]={1,2,3,4,5,6,7,8,8,7,6,5,4,3,2,1};
+		T AB[2*8]=	{6, 34, 77, 57, 83, 69, 93, 87};
 
 
 		//C_HW = EucHW (A, B,true);

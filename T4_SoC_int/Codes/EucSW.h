@@ -4,6 +4,6 @@
 #include "specs.h"
 #include <stdio.h>
 
-void EucSW(T2 AB[M], T *C);
+void EucSW(T2 AB[2*M], T *C);
 
 #endif

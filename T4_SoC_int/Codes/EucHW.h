@@ -5,6 +5,6 @@
 #include <stdio.h>
 
 
-void EucHW(T AB[M], T *C);
+void EucHW(T AB[2*M], T *C);
 
 #endif
