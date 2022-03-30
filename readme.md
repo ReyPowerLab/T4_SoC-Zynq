@@ -171,16 +171,16 @@ Notar que el bloque concat se usa para conectar todas las interrupciones con el 
 -  Program Device en Xilinx/ Program Device
 -  Run as -> Launch Hardware
 
-<center><img src="Figuras/Launch.PNG" width="70%"></center>
+<center><img src="Figuras/Launch.png" width="70%"></center>
       <center>main_Vitis</center>
 
 7. Escribir cmd en la barra de direcciones del proyecto en el Explorador Windows y ejecutar phython Serialcmd.py
 
-### Resultados para la Versión de números enteros
+### Resultados para la versión de números enteros
 
 En los experimentos realizados se aprecia que la primera operación de vectores para el cálculo de la distancia euclidiana siempre demora tres o cuatro ciclos de reloj más que el resto de las operaciones:
 
-<center><img src="Figuras/Result_int.PNG" width="70%"></center>
+<center><img src="Figuras/Result_int.PNG" width="50%"></center>
       <center></center>
 
 
