@@ -14,7 +14,7 @@ int compare(T gold, T result, T th);
 
 int main (){
 	int errors = 0;
-	int tests = 5;
+	int tests = 10;
 	
 	T AB[2*M];
 	T C_HW, C_SW;
@@ -30,7 +30,6 @@ int main (){
 	//	T A[8]={1,2,3,4,5,6,7,8};
 	//	T B[8]={8,7,6,5,4,3,2,1};
  	//T AB[2*8]={1,2,3,4,5,6,7,8,8,7,6,5,4,3,2,1};
-		T AB[2*8]=	{6, 34, 77, 57, 83, 69, 93, 87};
 
 
 		//C_HW = EucHW (A, B,true);
