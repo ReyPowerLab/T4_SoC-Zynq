@@ -1,16 +1,16 @@
-
+/**********************************header files************************************************/
 #include <stdio.h>
-#include <xparameters.h>
+#include <xparameters.h> /*  This file contains the processor’s address space and the device IDs.*/
 #include <xscutimer.h>
-#include <xscugic.h>
-#include <xgpio.h>
-#include <xil_exception.h>
+#include <xscugic.h>	 /*This file holds the drivers for the configuration and use of the GIC. */
+#include <xgpio.h>		 
+#include <xil_exception.h> /*This file contains exception functions for the Cortex-A9.*/
 #include "xeuchw.h"
-//#include <xil_printf.h>
-
+#include <xil_printf.h>
+/************************************************************************************************/
 
 #define INTC_DEVICE_ID			XPAR_PS7_SCUGIC_0_DEVICE_ID
-#define EXTP_DEVICE_ID			XPAR_AXI_GPIO_0_DEVICE_ID
+#define EXTP_DEVICE_ID			XPAR_AXI_GPIO_2_DEVICE_ID
 #define LEDS_DEVICE_ID 			XPAR_GPIO_LEDS_DEVICE_ID
 #define BTNS_DEVICE_ID 			XPAR_GPIO_BTNS_DEVICE_ID
 #define XHLS_DEVICE_ID			XPAR_EUCHW_0_DEVICE_ID
@@ -20,11 +20,9 @@
 #define xil_printf 				printf
 #define BTN_INT					XGPIO_IR_CH1_MASK
 
-#define N_VECTORS				1
-#define VECTOR_SIZE				1280
-#define BUFFER_SIZE				160
+#define VECTOR_SIZE				2048 /* 2*M -> Vectors A y B */
+#define BUFFER_SIZE				256  /* VECTOR_SIZE/BRAMS*/
 #define BRAMS					8
-#define TIME 				10000
 #define TIMER_LOAD_VALUE 	0xFFFFFFFF
 
 enum errTypes
@@ -44,12 +42,12 @@ enum IP_ready
 int IntcInitFunction(u16 DeviceId, XGpio *GpioIns);
 int errorHandler(enum errTypes err);
 void BTN_InterruptHandler(void *InsPtr);
-int TxDataSend(XEuchw *InstancePtr, int data[VECTOR_SIZE]);
+int TxDataSend(XEuchw *InstancePtr, int data[VECTOR_SIZE]); // change to float
 void AdderTreeReceiveHandler(void *InstPtr);
 
 XScuTimer timer;
-XGpio leds, btns, extp;
-XScuGic intc;
+XGpio leds, btns, extp; /* Gpio Device */
+XScuGic intc;	 /*Interrupt Controller Driver*/
 XEuchw hls_ip;
 static int led_data;
 static int btn_value;
@@ -64,9 +62,64 @@ void (*XHLSWriteFunc[])() = {	XEuchw_Write_AB_0_Words,
 								XEuchw_Write_AB_6_Words,
 								XEuchw_Write_AB_7_Words};
 u32 TxData[BUFFER_SIZE];
-//u32 RxData[2];
 u32 RxData;
 
+
+
+int main()
+{
+	/*************************Initialization******************************* */
+	int status = XST_SUCCESS;   // Interruptions status
+
+	/* INIT */
+	/* HLS IP init */
+	status += XEuchw_Initialize(&hls_ip, XHLS_DEVICE_ID);   // Init IP
+	if (status != XST_SUCCESS) return errorHandler(ERR_HLS_INIT); // Verification
+
+	/* gpio init */
+	status += XGpio_Initialize(&leds, LEDS_DEVICE_ID);
+	status += XGpio_Initialize(&btns, BTNS_DEVICE_ID);
+	status += XGpio_Initialize(&extp, EXTP_DEVICE_ID); // ports dont's use in this proyect
+	if (status != XST_SUCCESS) return errorHandler(ERR_GPIO_INIT);
+
+    /* Directions */
+	XGpio_SetDataDirection(&leds, 1, 0x00);
+	XGpio_SetDataDirection(&extp, 1, 0x00);
+	XGpio_SetDataDirection(&btns, 1, 0xff);
+
+	/* interrupt controller init*/
+	status = IntcInitFunction(INTC_DEVICE_ID, &btns);
+	if (status != XST_SUCCESS) return errorHandler(ERR_INTC_INIT);
+
+	/* Timer init */
+    XScuTimer_Config *cfgPtr;
+	cfgPtr = XScuTimer_LookupConfig(TIMER_DEVICE_ID);
+	status = XScuTimer_CfgInitialize(&timer, cfgPtr, cfgPtr->BaseAddr);
+	if (status != XST_SUCCESS) return errorHandler(ERR_TIMER_INIT);
+
+	ip_status = IP_Ready;
+	XGpio_DiscreteWrite(&extp, 1, 0x00);
+	int txbuffer[VECTOR_SIZE];
+	/***************************** cycle ********************************/
+	while(1){
+		while (ip_status == IP_Busy) {};
+		XGpio_DiscreteWrite(&leds, 1, 0xff); // Leds ON
+		getVector(txbuffer); // Get data from PC
+	//	XGpio_DiscreteWrite(&leds, 1, 0x00); // Leds Off
+		XScuTimer_LoadTimer(&timer, TIMER_LOAD_VALUE);  // Timer
+		if (XScuTimer_GetCounterValue(&timer) != TIMER_LOAD_VALUE) return errorHandler(ERR_DEFAULT); // Error timer
+		XScuTimer_Start(&timer); // Start timer
+		TxDataSend(&hls_ip, txbuffer); // send data to IP
+		ip_status = IP_Busy;
+		XEuchw_Start(&hls_ip);
+		XGpio_DiscreteWrite(&extp, 1, 0x00);
+	}
+    return 0;
+}
+/*********************************************************************/
+
+
+/************************* Functions******************************************/
 int TxDataSend(XEuchw *InstancePtr, int data[VECTOR_SIZE])
 {
 	int status = XST_SUCCESS;
@@ -84,17 +137,16 @@ int TxDataSend(XEuchw *InstancePtr, int data[VECTOR_SIZE])
 void AdderTreeReceiveHandler(void *InstPtr)
 {
 
-	int results;
+	int results; // change to float
 	u32 ticks;
 	XEuchw_InterruptDisable(&hls_ip,1);
 
 	XGpio_DiscreteWrite(&extp, 1, 0x00);
 	RxData = XEuchw_Get_C(&hls_ip);
-	results = *((int*) &(RxData));
+	results = *((int*) &(RxData)); // change to float
 	ticks = XScuTimer_GetCounterValue(&timer);
 	XScuTimer_Stop(&timer);
-	xil_printf("%lu:%d\n", TIMER_LOAD_VALUE - ticks,results);
-   	//xil_printf("%d\n", results);
+	xil_printf("%lu:%d\n", TIMER_LOAD_VALUE - ticks,results); // change to float
 	ip_status = IP_Ready;
 	XEuchw_InterruptClear(&hls_ip,1);
 	XEuchw_InterruptEnable(&hls_ip,1);
@@ -104,67 +156,9 @@ void getVector(int vec[VECTOR_SIZE])
 {
 	for (int i = 0; i < VECTOR_SIZE; i++)
 	{
-		scanf("%d", &vec[i]);
+		scanf("%d", &vec[i]); // Change to float
 	}
 }
-
-int main()
-{
-
-	int status = XST_SUCCESS;
-
-	/* INIT */
-	/* HLS IP init */
-	status += XEuchw_Initialize(&hls_ip, XHLS_DEVICE_ID);
-	if (status != XST_SUCCESS) return errorHandler(ERR_HLS_INIT);
-
-	/* gpio init */
-	status += XGpio_Initialize(&leds, LEDS_DEVICE_ID);
-	status += XGpio_Initialize(&btns, BTNS_DEVICE_ID);
-	status += XGpio_Initialize(&extp, EXTP_DEVICE_ID);
-	if (status != XST_SUCCESS) return errorHandler(ERR_GPIO_INIT);
-
-	XGpio_SetDataDirection(&leds, 1, 0x00);
-	XGpio_SetDataDirection(&extp, 1, 0x00);
-	XGpio_SetDataDirection(&btns, 1, 0xff);
-
-	/* interrupt controller init*/
-	status = IntcInitFunction(INTC_DEVICE_ID, &btns);
-	if (status != XST_SUCCESS) return errorHandler(ERR_INTC_INIT);
-
-	/* Timer init */
-		//int ticks;
-		XScuTimer_Config *cfgPtr;
-		cfgPtr = XScuTimer_LookupConfig(TIMER_DEVICE_ID);
-		status = XScuTimer_CfgInitialize(&timer, cfgPtr, cfgPtr->BaseAddr);
-		if (status != XST_SUCCESS) return errorHandler(ERR_TIMER_INIT);
-
-	ip_status = IP_Ready;
-	XGpio_DiscreteWrite(&extp, 1, 0x00);
-	int txbuffer[VECTOR_SIZE];
-	//int txbuffer[] = {45, 20, 79, 85, 23, 12, 29, 61, 0, 93, 98, 76, 56, 75, 27, 55};
-	for (int trial = 0; trial < N_VECTORS; trial++ )
-	{
-		while (ip_status == IP_Busy) {};
-		XGpio_DiscreteWrite(&leds, 1, 0xff);
-		XScuTimer_LoadTimer(&timer, TIMER_LOAD_VALUE);
-		if (XScuTimer_GetCounterValue(&timer) != TIMER_LOAD_VALUE) return errorHandler(ERR_DEFAULT);
-		getVector(txbuffer);
-		XGpio_DiscreteWrite(&leds, 1, 0x00);
-		XScuTimer_Start(&timer);
-		TxDataSend(&hls_ip, txbuffer);
-		ip_status = IP_Busy;
-		XEuchw_Start(&hls_ip);
-		XGpio_DiscreteWrite(&extp, 1, 0xff);
-	}
-
-	while(1);
-
-    return 0;
-}
-
-
-
 void BTN_Intr_Handler(void *InsPtr)
 {
 	// Disable GPIO interrupts
@@ -220,18 +214,20 @@ int IntcInitFunction(u16 DeviceId, XGpio *GpioIns)
 	int status;
 
 	// Interrupt controller initialization
+	//**********************Initialize the GIC***************************************/
 	IntcConfig = XScuGic_LookupConfig(DeviceId);
 	status = XScuGic_CfgInitialize(&intc, IntcConfig, IntcConfig->CpuBaseAddress);
+	/********************************************************************************/
 	if(status != XST_SUCCESS) return status;
 
 	// Call to interrupt setup
 	XGpio_InterruptEnable(GpioIns, BTN_INT);
 	XGpio_InterruptGlobalEnable(&btns);
-
+	//Connect to the hardware
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 								(Xil_ExceptionHandler) XScuGic_InterruptHandler,
 								&intc);
-
+	/*********************************************************************************/
 	Xil_ExceptionEnable();
 
 	// Connect GPIO interrupt to handler
@@ -257,5 +253,6 @@ int IntcInitFunction(u16 DeviceId, XGpio *GpioIns)
 	XScuGic_Enable(&intc, INTC_ADDT_INT_ID);
 
 	return XST_SUCCESS;
+	/***********************************************************************************/
 }
 
