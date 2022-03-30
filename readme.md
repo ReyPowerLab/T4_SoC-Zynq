@@ -110,7 +110,7 @@ A continuación le debe quedar un resumen de proyecto como se muestra a continua
 
 2. El diseño de hardware se realiza mediante los bloques IP disponibles en Vivado y el bloque IP de la distancia euclidiana importada desde Vitis HLS. Para crear el diseño en la ventana de navegación se importa el IP personalizado seleccionando la carpeta donde se encuentra el archivo descomprimido del bloque IP diseñado en Vitis HLS. Para añadir el IP se entra en el catálogo de IP en la ventana de navegación de Vivado y mediante clic derecho se selecciona la opción add repository para seleccionar la carpeta. 
 
-<center><img src="Figuras/add_repository.PNG" width="70%"></center>
+<center><img src="Figuras/add_repository.PNG" width="50%"></center>
       <center></center>
 
 3. En Create Block Design se crea el proyecto y en la ventana de Diagram se seleccionan mediante el signo + (Add IP) los bloques:
@@ -162,7 +162,7 @@ Notar que el bloque concat se usa para conectar todas las interrupciones con el 
 
 5. En menú Explorer, clic derecho en la carpeta src y seleccionar Import Sources, en Browse seleccionar el directorio del proyecto, el main y finish.
 
-<center><img src="Figuras/main_Vitis.PNG" width="70%"></center>
+<center><img src="Figuras/main_Vitis.PNG" width="50%"></center>
       <center>main_Vitis</center>
 
 6. Se deben realizar tres pasos:
