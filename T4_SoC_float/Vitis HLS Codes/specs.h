@@ -3,6 +3,6 @@
 
 typedef  float T;
 typedef  float T2;
-#define M 1024
+#define M 384
 
 #endif
