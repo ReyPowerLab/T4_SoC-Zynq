@@ -1,7 +1,3 @@
-
-
-
-
 # SISTEMA HETEROGÉNEO  EN SOC ZYNQ
 ----
 
@@ -15,10 +11,8 @@
       - [Vitis HLS](#Vitis-HLS)
       - [Vivado](#Vivado)
       - [Xilinx Vitis](#Xilinx-Vitis)
-  - [Contribución](#contribución)
-  - [Selección de pragmas](#selección-de-pragmas)
-	  - [Resultados obtenidos](#resultados-obtenidos)
-	  - [Contribución](#contribución-1)
+  - [Resultados para la Versión de números enteros](#Resultados-para-la-versión-de-números-enteros)
+	 
 	  - [Informacion de contacto](#informacion-de-contacto)
 
 ### Descripción
@@ -35,6 +29,12 @@ Para reproducir los resultados obtenidos se requiere instalar los siguientes pro
 - Vivado: Paquete de software  para la síntesis,  análisis  e implementación de diseños de lenguaje de descripción de hardware (HDL).
 
 - Xilinx Vitis: Permite la programación del procesador y la importación del hardware diseñado para la lógica programable desde Vivado. En el caso de interés para la plataforma de desarrollo  Zynq^{TM} - 7000.
+
+- Python
+
+- NUMPY library
+
+- pySerial
 
 La versión de Xilinx Vitis, Vitis HLS y Vivado empleadas en este trabajo son del 2021.1.
 
@@ -150,35 +150,40 @@ Notar que el bloque concat se usa para conectar todas las interrupciones con el 
 
 10. Exportar el hardware con el archivo Bitstream en File/Export -> Export Hardware. Por defecto, el hardware se exporta dentro de la carpeta del proyecto con extención .xsa. Este archivo se emplea para Vitis a continuación.
 
-
-
-
-1. Añadir todos los archivos fuentes al proyecto de Vivado, los cuales se encuentra dentro del directorio "IP_block_test" del mismo repositorio. Project Manager->Add Sources->Add or Create design sources. Repetir lo mismo para el archivo de constrain, seleccionando "Add or create contraints".
-
-2. En la pestaña de Flow Navigator, dar clic a Generate Bitstream. Esto realiza la síntesis y la implementación del código previamente, para generar el archivo de configuración.
-
-3. Generado el bitstream, en la pestaña saliente, seleccione la opción Open Hardware Manager. Establezca la conexión con la FPGA con la opcion Auto Connect, luego Program Device. El codigo se encuentra compilado en la tarjeta.
-
-4. Abrir MATLAB y correr el código de nombre "coprocessorTesting_Oficial.m". Recuerde asignar la ubicacion de todos los archivos .m en el PATH del programa. MATLAB avisa al usuario la primera vez que se ejecuta un script. En la pestaña saliente seleccione Add to Path.	
-
-Cabe destacar que el bloque IP ya viene en el repositorio, por lo que no se requiere utilizar el Vitis HLS. En caso de querer comprobar resultados, se deben realizar los siguentes pasos:
-
-1. Crear un nuevo proyecto de Vitis HLS. Dentro de la pestaña al iniciar el programa, dar clic en "Create Project"
-2. Se entrará a una pestaña para agregar los Design Files. Dar clic en Add Files, y añadir todo archivo .cpp y .h, con excepcion del archivo "EucTB.cpp" ya que es un archivo de simulación
-3. En la siguiente pestaña para agregar testbenches, agregar el archivo faltante (EucTB.cpp)
-4. En la siguiente pestaña, se mantienen la gran mayoría de opciones por defecto, con la excepción del Part Selection, la cual debe coincidir con la usada en Vivado. Dar clic en finalizar
-
 ### Xilinx Vitis 
 
+1. Se crea un directorio  para el proyecto de Xilinx Vitis y se copia el archivo .xsa generado del punto anterior, el archivo main.c de la carpeta de repositorio correspondiente a versión de enteros y el archivo Serialcmd.
 
-### Contribución
-Si buscas contribuir al repositorio o para realizar consultas del codigo
+2. Cuando se abre Xilinx Vitis, selecciona el directorio de proyeco para definir el Workspace y clic en Launch.
 
-### Selección de pragmas
-- ARRAY PARTITION: Este pragma permite particionar vectores en secciones más pequeñas. EL desarrollo de la tarea 3 considera una memoria de caracter SIPO (Singular input Parallel Output), por lo que, al querer evitar realizar cambios en la arquitectura se decide particionar los 2 vectores de forma completa, y asi lograr una implementación idéntica.
+3. Clic en Create Application Proyect, en ventana de plataforma seleccionar Create a new platform from hardware (XSA) y en Browse agreegar el .xsa.
 
-- PIPELINE: Este pragma permite segmentar las operacion realizada en el código de alto nivel. Se utiliza este pragma para lograr una implementacion con la menor cantidad de recursos posible, a cambio de una mayor latencia. Se realizan pruebas preliminares con el pragma UNROLL, que reduce la cantidad de comparaciones, y en contraste, una mejora considerable en la latencia. No obstante, la FPGA usada no posee los recursos necesarios para implementar dicha estrategia. Se utilizan los parámetros por defecto.
-### Resultados obtenidos
+4. En Application Proyect Details asignar el nombre del proyecto, en la ventana a continuación dejar detalles por defecto, en Templates seleccionar empty Application(C) y finalizar la creación del proyecto.
+
+5. En menú Explorer, clic derecho en la carpeta src y seleccionar Import Sources, en Browse seleccionar el directorio del proyecto, el main y finish.
+
+<center><img src="Figuras/main_Vitis.PNG" width="70%"></center>
+      <center>main_Vitis</center>
+
+6. Se deben realizar tres pasos:
+
+-  Build en el martillo de la barra de herrmientas
+-  Program Device en Xilinx/ Program Device
+-  Run as -> Launch Hardware
+
+<center><img src="Figuras/Launch.PNG" width="70%"></center>
+      <center>main_Vitis</center>
+
+7. Escribir cmd en la barra de direcciones del proyecto en el Explorador Windows y ejecutar phython Serialcmd.py
+
+### Resultados para la Versión de números enteros
+
+En los experimentos realizados se aprecia que la primera operación de vectores para el cálculo de la distancia euclidiana siempre demora tres o cuatro ciclos de reloj más que el resto de las operaciones:
+
+<center><img src="Figuras/Result_int.PNG" width="70%"></center>
+      <center>Result_int</center>
+
+
 
 1. Vitis HLS
 
