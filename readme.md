@@ -181,99 +181,11 @@ Notar que el bloque concat se usa para conectar todas las interrupciones con el 
 En los experimentos realizados se aprecia que la primera operación de vectores para el cálculo de la distancia euclidiana siempre demora tres o cuatro ciclos de reloj más que el resto de las operaciones:
 
 <center><img src="Figuras/Result_int.PNG" width="70%"></center>
-      <center>Result_int</center>
+      <center></center>
 
 
-
-1. Vitis HLS
-
-Para validar el diseño realizado en vitis HLS, se debe seguir el siguiente flujo de verificación.
-
-C Simulation -> Synthesis -> Export RTL
-
-La cosimulacion no es considerada para el número de datos solicitado, debido a que el programa entregaba falla a pesar de estar funcionando correctamente en la FPGA, tanto para un menor número de datos. Se desconoce la razón de este falso positivo.
-
-- Resultados simulación
-
-Esta etapa realiza la ejecución del código presente en EUCSW.cpp y EucHW.cpp y los compara, repitiendo la prueba una determinada cantidad de veces. Un valor de retorno 0 indica simulación exitosa. Al dar clic en C simulation, con las opciones por defecto. Se obtiene el siguiente resultado en la terminal.
-```
-
-Number of errors: 0
-INFO: [SIM 211-1] CSim done with 0 errors.
-INFO: [SIM 211-3] *************** CSIM finish ***************
-INFO: [HLS 200-111] Finished Command csim_design CPU user time: 6 seconds. CPU system time: 0 seconds. Elapsed time: 6.53 seconds; current allocated memory: 117.766 MB.
-Finished C simulation.
-```
-No se presenta errores en las operaciones, al recibir el valor 0 como retorno de la simulación. Además se detalla el tiempo y recursos de la CPU para realizar la simulación.
-
-- Resultado síntesis
-
-Esto lleva a cabo la simulación para determinar la interfaz (puertos de entrada salida, forma de implementación, entre otros) y reinterpretar la funcionalidad del código C en uno de hardware. La terminal entrega la siguiente información, con respecto al proceso de sintetización:
-```
-INFO: [VHDL 208-304] Generating VHDL RTL for EucHW.
-INFO: [VLOG 209-307] Generating Verilog RTL for EucHW.
-INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were satisfied.
-INFO: [HLS 200-789] **** Estimated Fmax: 140.95 MHz
-INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 872 seconds. CPU system time: 6 seconds. Elapsed time: 1084.14 seconds; current allocated memory: 607.312 MB.
-INFO: [HLS 200-112] Total CPU user time: 874 seconds. Total CPU system time: 7 seconds. Total elapsed time: 1086.05 seconds; peak allocated memory: 1008.943 MB.
-Finished C synthesis.
-```
-La sintesis determina que el bucle presente cumple con los requisitos de diseño. Además se reporta los recursos que la CPU utilizó en total para realizar la operación, la frecuencia máxima de reloj en que el bloque puede teóricamente funcionar.
-
-Tambies existe otro reporte que el programa entrega, referente a las estimaciones de rendimiento (latencia) y recursos al usar e implementar el bloque IP a generar. La información de importancia se presenta a continuación:
-
-| Módulo && Bucles | Latencia (Ciclos) | Latencia (ns) | Pipelined | DSP | FF  | LUT  |
-|------------------|-------------------|---------------|-----------|-----|-----|------|
-| EucHW            | 1093              | 10930         | no        | 3   | 569 | 6965 |
-| loop             | 1027              | 10270         | yes       | -   | -   | -    |
-
-
-- Resultado Exportación bloque IP
-
-Haciendo clic en Export RTL, permite generar el IP a utilizar en el bloque vivado. Debe asegurarse de tener el formato de exportación como Vivado IP. El nombre no es algo necesario de mantener, pero evita problemas con duplicados. La pestaña previa debe quedar de forma similar a la imagen:
-
-
-Una vez terminada, la terminal entrega lo siguiente:
-```
-INFO: [Common 17-206] Exiting Vivado at Tue Mar 22 15:39:15 2022...
-INFO: [HLS 200-802] Generated output file Euc_res.zip
-INFO: [HLS 200-111] Finished Command export_design CPU user time: 345 seconds. CPU system time: 5 seconds. Elapsed time: 881.63 seconds; current allocated memory: 211.783 MB.
-Finished Export RTL/Implementation.
-```
-
-Similar a los puntos anteriores, se reporta el tiempo requerido y los recursos usado por la CPU para realizar la operación.
-
-2. Vivado
-
-Al realizar la integración del bloque euclidiano con el resto del Processing Core, la implementación entrega el siguiente reporte de recursos:
-
-| Recurso | N° en Uso | \%Uso |
-|------------------------------|-------|-------|
-| Slice LUTs                   | 53467 | 84.33 |
-| LUT as Logic                 | 53411 | 84.24 |
-| LUT as Memory                | 56    | 0.29  |
-| Slice Registers              | 30895 | 24.37 |
-| Register as Flip Flop        | 30895 | 24.37 |
-| F7 Muxes                     | 4232  | 13.35 |
-| F8 Muxes                     | 2048  | 12.92 |
-| DSP                          | 3     | 1.25  |
-
-Este reporte considera todos los módulos del Processing core en total. Para el caso particular del bloque IP, se tiene el siguiente reporte de recursos:
-
-| Recurso    | N° en Uso |
-|------------|-----------|
-| Slice LUTs | 36990     |
-| Flip Flops | 3978      |
-| DSP        | 3         |
-
-
-Con respecto al tiempo requerido para realizar proceso de síntesis e implementación, el programa tarda 09:22 y 25:16, respectivamente en cada una. Esto se observa en la pestaña de Design Runs, la cual se accede por defecto, o mediante el buscador Quick Access. Estos tiempos difieren si se tiene un computador de alta gama y si no tiene muchos procesos abiertos.
-
-
-### Contribución
-Si buscas contribuir al repositorio o para realizar consultas del codigo
 
 
 ### Informacion de contacto
-[Github Profile](https://github.com/Joptis)
-           jose.cayo.14@sansano.usm.cl
+[Github Profile](https://github.com/ReyPowerLab/)
+           reinier.lopez@sansano.usm.cl
