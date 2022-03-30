@@ -30,11 +30,11 @@ Para reproducir los resultados obtenidos se requiere instalar los siguientes pro
 
 - Xilinx Vitis: Permite la programación del procesador y la importación del hardware diseñado para la lógica programable desde Vivado. En el caso de interés para la plataforma de desarrollo  Zynq^{TM} - 7000.
 
-- Python
+- Python: Para configurar, depurar, y monitorear el PS.
 
-- NUMPY library
+- NUMPY library: Permite generar los vectores en la PC, calcular resultado esperado y la estadística de la latencia obtenida
 
-- pySerial
+- pySerial: Para la comunicación serial entre la PC y la Zybo.
 
 La versión de Xilinx Vitis, Vitis HLS y Vivado empleadas en este trabajo son del 2021.1.
 
@@ -110,7 +110,7 @@ A continuación le debe quedar un resumen de proyecto como se muestra a continua
 
 2. El diseño de hardware se realiza mediante los bloques IP disponibles en Vivado y el bloque IP de la distancia euclidiana importada desde Vitis HLS. Para crear el diseño en la ventana de navegación se importa el IP personalizado seleccionando la carpeta donde se encuentra el archivo descomprimido del bloque IP diseñado en Vitis HLS. Para añadir el IP se entra en el catálogo de IP en la ventana de navegación de Vivado y mediante clic derecho se selecciona la opción add repository para seleccionar la carpeta. 
 
-<center><img src="Figuras/add_repository.PNG" width="50%"></center>
+<center><img src="Figuras/add_repository.PNG" width="40%"></center>
       <center></center>
 
 3. En Create Block Design se crea el proyecto y en la ventana de Diagram se seleccionan mediante el signo + (Add IP) los bloques:
@@ -163,7 +163,7 @@ Notar que el bloque concat se usa para conectar todas las interrupciones con el 
 5. En menú Explorer, clic derecho en la carpeta src y seleccionar Import Sources, en Browse seleccionar el directorio del proyecto, el main y finish.
 
 <center><img src="Figuras/main_Vitis.PNG" width="50%"></center>
-      <center>main_Vitis</center>
+      <center></center>
 
 6. Se deben realizar tres pasos:
 
@@ -172,7 +172,7 @@ Notar que el bloque concat se usa para conectar todas las interrupciones con el 
 -  Run as -> Launch Hardware
 
 <center><img src="Figuras/Launch.png" width="70%"></center>
-      <center>main_Vitis</center>
+      <center></center>
 
 7. Escribir cmd en la barra de direcciones del proyecto en el Explorador Windows y ejecutar phython Serialcmd.py
 
