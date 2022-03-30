@@ -12,6 +12,9 @@
   - [Descripción](#descripción)
   - [Requisitos](#requisitos)
   - [Instalación y utilización](#instalación-y-utilización)
+      - [Vitis HLS](#Vitis-HLS)
+      - [Vivado](#Vivado)
+      - [Xilinx Vitis](#Xilinx-Vitis)
   - [Contribución](#contribución)
   - [Selección de pragmas](#selección-de-pragmas)
 	  - [Resultados obtenidos](#resultados-obtenidos)
@@ -39,17 +42,20 @@ IMPORTANTE: Es posible que hasta la fecha Vitis HLS tenga problemas para exporta
 
 ### Instalación y utilización
 
-1. Clonar el repositorio a un directorio. Se recomienda que la dirección del directorio  sea corta  para evitar conflictos con los programas mencionados
+ Clonar el repositorio a un directorio. Se recomienda que la dirección del directorio  sea corta  para evitar conflictos con los programas mencionados
 
 ```
 git clone https://github.com/ReyPowerLab/T4_SoC-Zynq
 ```
 
-2. Crear un projecto en Vitis:
 
-Se inicia Vitis HLS y se selecciona la opción Create Project, se le asigna un nombre  y el directorio de localiazción del proyecto
+### Vitis HLS 
 
-<center><img src="Figuras/Create_Proyect_Vitis.PNG" width="90%"></center>
+Crear un projecto en Vitis:
+
+Se inicia Vitis HLS y se selecciona la opción Create Project, se le asigna un nombre  y el directorio de localización del proyecto
+
+<center><img src="Figuras/Create_Proyect_Vitis.PNG" width="50%"></center>
       <center>This is an image</center>
 
 Luego, en la ventana siguiente se agregan los códigos fuentes en C disponibles en repositorio: T4_SoC_int/Vitis HLS Codes/:
@@ -67,42 +73,45 @@ Luego se especifica el código principal y dar siguiente. En la ventana a contin
 A continuación, se selecciona el período de 14.28 ns y la plataforma de desarrollo:
 
 
-<center><img src="Figuras/Vitis_HLS_board.PNG" width="90%"></center>
-      <center>This is an image</center>
+<center><img src="Figuras/Vitis_HLS_board.PNG" width="50%"></center>
+      <center></center>
 
 Con los pasos previos se tiene el proyecto creado. Luego, en el fichero specs,  definir el tipo de variables T y T2 como int para indicar que el diseño opera con números enteros. Además, indicar el valor de M con 1024. Los siguientes pasos son de simulación, síntesis y exportación a RTL. Estas opciones se encuentran en el ménú desplegable en el ícono verde de la barra de herramientas que se muestra en la figura. Además, se muestran cinco resultados de simulación. Si se desea verificar un número mayor de veces los resultados de simulación, en el archivo EucTB.cpp se puede introducir a la variable test el número de simulación deseado.
 
 
 <center><img src="Figuras/Sim_Vitis_int.PNG" width="90%"></center>
-      <center>This is an image</center>
+      <center></center>
 
 A continuación se muestran el resultado de timing estimado. 
 
 <center><img src="Figuras/Timing_int_1024.PNG" width="90%"></center>
-      <center>This is an image</center>  
+      <center></center>  
 
 Además, se muestran  los recursos estimados, la entrada y la salida del IP diseñado.          
 
-<center><img src="Figuras/Reporte_Vitis_HLS_int.PNG" width="90%"></center>
-      <center>This is an image</center> 
+<center><img src="Figuras/Reporte_Vitis_HLS_int.PNG" width="70%"></center>
+      <center></center> 
 
 Finalmente, se exporta a RTL y en el directorio  del proyecto, en \solution1\impl se encuentra la carpeta comprimida export. Esta carpeta debe ser descomprimida en un directorio especificado para posteriormente emplear en Vivado.
+
+
+### Vivado 
 
 1. Crear un projecto en Vivado: 
 Se inicia Vivado y se selecciona la opción Create Project, las opciones de configuración se dejan por defecto hasta llegar a la ventana para seleccionar la plataforma, en este caso se selecciona en la ventana de Boards la xc7z010clg400-1 como se muestra en la Figura:
 
-<center><img src="Figuras/Create_Proyect_Vivado.PNG" width="90%"></center>
-      <center>This is an image</center>
+<center><img src="Figuras/Create_Proyect_Vivado.PNG" width="70%"></center>
+      <center></center>
 
 A continuación le debe quedar un resumen de proyecto como se muestra a continuación:
 
-<center><img src="Figuras/New Proyect Summary.PNG" width="90%"></center>
-      <center>This is an image</center>
+<center><img src="Figuras/New Proyect Summary.PNG" width="70%"></center>
+      <center></center>
 
 2. El diseño de hardware se realiza mediante los bloques IP disponibles en Vivado y el bloque IP de la distancia euclidiana importada desde Vitis HLS. Para crear el diseño en la ventana de navegación se importa el IP personalizado seleccionando la carpeta donde se encuentra el archivo descomprimido del bloque IP diseñado en Vitis HLS. Para añadir el IP se entra en el catálogo de IP en la ventana de navegación de Vivado y mediante clic derecho se selecciona la opción add repository para seleccionar la carpeta. 
 
-<center><img src="Figuras/add_repository.PNG" width="90%"></center>
-      <center>This is an image</center>
+<center><img src="Figuras/add_repository.PNG" width="70%"></center>
+      <center></center>
 
 3. En Create Block Design se crea el proyecto y en la ventana de Diagram se seleccionan mediante el signo + (Add IP) los bloques:
 
@@ -126,15 +135,24 @@ Nota: Los puertos con propositos personalizados se encuentran en deshuso para es
 
 5. Se requiere habilitar las interrupciones para los botones y habilitar la entrada de las interrupciones en el procesador. Clic derecho en GPIO_btns y seleccionar Enable Interrupt. Luego Clic derecho en Zynq7 Processing system, en Interrupts, seleccionar Fabric Interrupts, en PL-PS Interrupts Ports seleccionar IRQ_F2P. El diseño le debe quedar como se muestra en la Figura:
 
-<center><img src="Figuras/Block_design.PNG" width="90%"></center>
-      <center>This is an image</center>
+<center><img src="Figuras/Block_design.PNG" width="70%"></center>
+      <center></center>
 Notar que el bloque concat se usa para conectar todas las interrupciones con el procesador.
 
 6. Se valida el diseño mediante Tools/ Validate  Design. La primera es posible que vez Vivado informe peligros en el diseño. Sin embargo, puede ser omitible y desaparecen si se valida por segunda vez. 
 
 7. Crear HDL Wrapper en la ventana de sources haciendo clic derecho en design_1 y seleccionando la opción Let Vivado manage wrapper and auto-update
 
-8. Generar el Bitstream y una vez termine este proceso exportar el hardware con el archivo Bitstream en File/Export -> Export Hardware
+8. En RTL ANALYSIS, en el Schematic, seleccionar el puerto gpio_rtl definido, luego en I/O Port Bus Properties, en I/O Ports   seleccionar en Package Pin A20 y B19 para cada puerto. Además, en I/O Std seleccionar LVCMOS33.  Luego guardar y cerrar el RTL ANALYSIS. Al guardar seleccionar un nombre para el fichero XDC.   
+
+9. Generar el Bitstream. En este paso se debe verificar que no hayan problemas de timing. En caso de que la herrmienta informe algún problema con el timing verificar que FCLK_CLK0 es de 70 MHz en el processing_system7_0. En los experimentos realizados se aprecia que la configuración de hardware se modifica automáticamente ante algún cambio en el diseño. Por lo que a veces es necesario verificar toda la configuración realizada anteriormente.
+
+
+10. Exportar el hardware con el archivo Bitstream en File/Export -> Export Hardware. Por defecto, el hardware se exporta dentro de la carpeta del proyecto con extención .xsa. Este archivo se emplea para Vitis a continuación.
+
+
+
+
 1. Añadir todos los archivos fuentes al proyecto de Vivado, los cuales se encuentra dentro del directorio "IP_block_test" del mismo repositorio. Project Manager->Add Sources->Add or Create design sources. Repetir lo mismo para el archivo de constrain, seleccionando "Add or create contraints".
 
 2. En la pestaña de Flow Navigator, dar clic a Generate Bitstream. Esto realiza la síntesis y la implementación del código previamente, para generar el archivo de configuración.
@@ -150,7 +168,7 @@ Cabe destacar que el bloque IP ya viene en el repositorio, por lo que no se requ
 3. En la siguiente pestaña para agregar testbenches, agregar el archivo faltante (EucTB.cpp)
 4. En la siguiente pestaña, se mantienen la gran mayoría de opciones por defecto, con la excepción del Part Selection, la cual debe coincidir con la usada en Vivado. Dar clic en finalizar
 
-
+### Xilinx Vitis 
 
 
 ### Contribución
