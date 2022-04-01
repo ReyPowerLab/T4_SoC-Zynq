@@ -225,12 +225,12 @@ Los resultados muestran que para un test de 5 veces el cálculo de la distancia 
 
 | Recursos        | Números enteros (M = 1024)  | Números flotantes (M = 384) )
 |-----------------|-----------------------------| ----------------------------|
-| Slice LUTs      | 12421                       |       12421                 |
-| Lut as Logic    | 12532                       |        12532                |
-| Lut as Memory   | 69                          |         69                  |
-| Slice Registers | 3389                        |       3389                  |
+| Slice LUTs      | 4708                        |       12421                 |
+| Lut as Logic    | 4610                      |        12532                |
+| Lut as Memory   | 98                          |         69                  |
+| Slice Registers | 4458                        |       3389                  |
 | Block Ram       | 8                           |         8                   |
-| DSP             | 5                           |         5                   |
+| DSP             | 24                           |         5                   |
 
 
 
