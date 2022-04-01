@@ -18,13 +18,14 @@
       - [Vivado](#Vivado2)
       - [Xilinx Vitis](#Xilinx-Vitis2)
   - [Resultados para la versión de números flotantes](#Resultados-para-la-versión-de-números-enteros)	 
+  - [Tabla de comparación de ambas versiones](#Tabla-de-comparación-de-ambas-versiones)	 
 	  - [Informacion de contacto](#informacion-de-contacto)
 
 ### Descripción
 
 Este repositorio es un tutorial para  la implementación de un co-procesador en la plataforma de desarrollo Zynq^{TM} - 7000 de la Tarea 4, asignatura IPD432 (Diseño avazanzado de sistemas digitales).	Se diseña en  FPGA el cálculo de la distancia Euclidiana entre dos vectores con High-Level-Synthesis (HLS). El procesador ARM de la Zynq-7000  cumple el rol de host que solicita el servicio
 de procesamiento de vectores a un co-procesador especializado implementado en la FPGA (Programmable Logic o PL). El PS y el PL se comunican mediante un bus AXI4-Lite. El host  envía los datos al PL,  y recibe el resultado. Todas las tareas de procesamiento se implementan en el SoC, mientras que el computador externo se utiliza para configurar, depurar, y monitorear el PSa través de el protocolo de momunicación UART. La  configuración emplaeada para el PS es bare-metal.
-Se presentan dos versiones del cálculo de la distancia Euclidiana. Se diseña un co-procesador paran números enteros  de 32 bits, y se modifica el diseño para otra versión de co-procesador para operar con números flotantes de precisión simple. Además,  se muestra la latencia obtenida de cada versión  desde el momento en que el procesador comienza a enviar los datos hasta que tiene el resultado final.
+Se presentan dos versiones del cálculo de la distancia Euclidiana,  se diseña un co-procesador paran números enteros  de 32 bits, y se modifica el diseño para otra versión de co-procesador para operar con números flotantes de precisión simple. Además,  se muestra la latencia obtenida de cada versión  desde el momento en que el procesador comienza a enviar los datos hasta que tiene el resultado final.
 
 ### Requisitos
 
@@ -219,6 +220,10 @@ El código en Python es muy similar al desarrollado para la versión de números
       <center></center>
 
 Los resultados muestran que para un test de 5 veces el cálculo de la distancia euclidiana  la primera operación demora tres ciclos de reloj más que el resto de las operaciones. 
+
+
+
+
 
 
 ### Informacion de contacto
