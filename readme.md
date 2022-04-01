@@ -11,7 +11,9 @@
       - [Vitis HLS](#Vitis-HLS)
       - [Vivado](#Vivado)
       - [Xilinx Vitis](#Xilinx-Vitis)
-  - [Resultados para la Versión de números enteros](#Resultados-para-la-versión-de-números-enteros)
+  - [Resultados para la versión de números enteros](#Resultados-para-la-versión-de-números-enteros)
+  - [Resultados para la versión de números flotantes](#Resultados-para-la-versión-de-números-enteros)
+      - [Vitis HLS](#Vitis-HLS)
 	 
 	  - [Informacion de contacto](#informacion-de-contacto)
 
@@ -183,7 +185,37 @@ En los experimentos realizados se aprecia que la primera operación de vectores 
 <center><img src="Figuras/Result_int.PNG" width="50%"></center>
       <center></center>
 
+### Números flotantes
 
+### Vitis HLS 
+
+Para desarrollar la versión de números flotantes se sigue el mismo procedimiento descrito con algunas modificaciones. Cambiar el tipo de números de enteros a flotantes para la operación de la distancia euclidiana en FPGA no es trivial empleando SystemVerilog. La herramienta de Vitis HLS permite  reducir el tiempo de diseño considerablemente empleando el lenguaje de programación C. En el código implementado solo se requiere cambiar la variable tipo int a float como se muestra en la figura:
+
+<center><img src="Figuras/float.PNG" width="50%"></center>
+      <center></center>
+
+La elección del período de muestro fue de modo expoloratorio, con la prioridad de minimizar la latencia para la mayor cantidad de elementos por vector. Se obtuvo un diseño final   para M = 384    con un período de muestreo de 25 ns. 
+
+### Vivado 
+
+Se emplea el mismo procedimiento descrito en la versión de números enteros pero se importa el IP generado en Vitis HLS para la versión de números flotantes. El usuario puede implementar el hardware de interés en esta aplicación mediante los pasos descritos anteriormmente, pero  por simplicidad, se incluye en el código el archivo .xsa generado por Vivado. Como se menciona anteriormente, este archivo es necesario para importar el IP personalizado e indicar  los protocolos de comunicación  y drivers para la Zybo  en Xilinx Vitis.
+El archivo .xsa  en este repositorio es para M = 384. Si se desea implementar un diseño para un número menor de elementos se requiere desarrollar todos los pasos descritos anteriormente desde Vitis HLS.
+
+
+### Xilinx Vitis 
+
+
+Para la versión de números flotantes se realizan los mismo pasos descritos anteriormente considerando el .xsa  exportado correspondiente.
+
+
+### Resultados para la versión de números flotantes
+
+El código en Python es muy similar al desarrollado para la versión de números flotantes. La diferencia se encuentra en la definición del tipo de variable flotante. 
+
+<center><img src="Figuras/float_result.PNG" width="50%"></center>
+      <center></center>
+
+Los resultados muestran que para un test de 5 veces el cálculo de la distancia euclidiana  la primera operación demora tres ciclos de reloj más que el resto de las operaciones. 
 
 
 ### Informacion de contacto
