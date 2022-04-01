@@ -7,7 +7,7 @@
 - [Tabla de contenidos](#tabla-de-contenidos)
   - [Descripción](#descripción)
   - [Requisitos](#requisitos)
-  - [Instalación y utilización](#instalación-y-utilización)
+  - [Números enteros](#Números-enteros)
       - [Vitis HLS](#Vitis-HLS)
       - [Vivado](#Vivado)
       - [Xilinx Vitis](#Xilinx-Vitis)
@@ -45,14 +45,14 @@ La versión de Xilinx Vitis, Vitis HLS y Vivado empleadas en este trabajo son de
 
 IMPORTANTE: Es posible que hasta la fecha Vitis HLS tenga problemas para exportar a Bloque IP debido a un problema denominado "New Year's bug". Para solucionarlo, se deben seguir los pasos estipulados [aquí](https://support.xilinx.com/s/article/76960?language=en_US).
 
-### Instalación y utilización
 
- Clonar el repositorio a un directorio. Se recomienda que la dirección del directorio  sea corta  para evitar conflictos con los programas mencionados
+
+ Clonar el repositorio a un directorio. Se recomienda que la dirección del directorio  sea corta  para evitar conflictos con los programas mencionados.
 
 ```
 git clone https://github.com/ReyPowerLab/T4_SoC-Zynq
 ```
-
+### Números enteros
 
 ### Vitis HLS 
 
