@@ -12,9 +12,12 @@
       - [Vivado](#Vivado)
       - [Xilinx Vitis](#Xilinx-Vitis)
   - [Resultados para la versión de números enteros](#Resultados-para-la-versión-de-números-enteros)
-  - [Resultados para la versión de números flotantes](#Resultados-para-la-versión-de-números-enteros)
-      - [Vitis HLS](#Vitis-HLS)
-	 
+  - [Números flotantes](#Números-flotantes)
+  
+      - [Vitis HLS](#Vitis-HLS2)
+      - [Vivado](#Vivado2)
+      - [Xilinx Vitis](#Xilinx-Vitis2)
+  - [Resultados para la versión de números flotantes](#Resultados-para-la-versión-de-números-enteros)	 
 	  - [Informacion de contacto](#informacion-de-contacto)
 
 ### Descripción
@@ -205,12 +208,12 @@ El archivo .xsa  en este repositorio es para M = 384. Si se desea implementar un
 ### Xilinx Vitis 
 
 
-Para la versión de números flotantes se realizan los mismo pasos descritos anteriormente considerando el .xsa  exportado correspondiente.
+Para la versión de números flotantes se realizan los mismos pasos descritos anteriormente considerando el .xsa  exportado correspondiente.
 
 
 ### Resultados para la versión de números flotantes
 
-El código en Python es muy similar al desarrollado para la versión de números flotantes. La diferencia se encuentra en la definición del tipo de variable flotante. 
+El código en Python es muy similar al desarrollado para la versión de números enteros. La diferencia se encuentra en la definición del tipo de variable flotante. 
 
 <center><img src="Figuras/float_result.PNG" width="50%"></center>
       <center></center>
