@@ -221,11 +221,16 @@ El código en Python es muy similar al desarrollado para la versión de números
 
 Los resultados muestran que para un test de 5 veces el cálculo de la distancia euclidiana  la primera operación demora tres ciclos de reloj más que el resto de las operaciones. 
 
-| Recursos    | Números enteros (M = 1024) | Números flotantes (M = 384) )
-|------------|-----------------------------| -----------------------------|
-| Slice LUTs | 36990                       |                              |
-| Flip Flops | 3978                        |                              |
-| DSP        | 3                           |                              |
+### Tabla de comparación para ambas versiones
+
+| Recursos        | Números enteros (M = 1024)  | Números flotantes (M = 384) )
+|-----------------|-----------------------------| ----------------------------|
+| Slice LUTs      | 12421                       |       12421                 |
+| Lut as Logic    | 12532                       |        12532                |
+| Lut as Memory   | 69                          |         69                  |
+| Slice Registers | 3389                        |       3389                  |
+| Block Ram       | 8                           |         8                   |
+| DSP             | 5                           |         5                   |
 
 
 
