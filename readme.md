@@ -18,7 +18,7 @@
       - [Vivado](#Vivado2)
       - [Xilinx Vitis](#Xilinx-Vitis2)
   - [Resultados para la versión de números flotantes](#Resultados-para-la-versión-de-números-enteros)	 
-  - [Tabla de comparación de ambas versiones](#Tabla-de-comparación-de-ambas-versiones)	 
+  - [Tabla de comparación para ambas versiones](#Tabla-de-comparación-para-ambas-versiones)	 
 	  - [Informacion de contacto](#informacion-de-contacto)
 
 ### Descripción
