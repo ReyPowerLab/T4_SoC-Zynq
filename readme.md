@@ -61,7 +61,7 @@ Crear un projecto en Vitis:
 Se inicia Vitis HLS y se selecciona la opción Create Project, se le asigna un nombre y el directorio de localización del proyecto
 
 <center><img src="Figuras/Create_Proyect_Vitis.PNG" width="50%"></center>
-      <center>This is an image</center>
+      <center></center>
 
 Luego, en la ventana siguiente se agregan los códigos fuentes en C disponibles en repositorio: T4_SoC_int/Vitis HLS Codes/:
 
