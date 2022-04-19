@@ -226,7 +226,7 @@ Los resultados muestran que para un test de 5 veces el cálculo de la distancia 
 &emsp;
 A continuación, se muestra en una tabla los recursos empleados en la FPGA para las versiones de números enteros y flotantes:
 
-| Recursos        | Números enteros (M = 1024)  | Números flotantes (M = 384) )
+| Recursos        | Números enteros (M = 1024)  | Números flotantes (M = 384) |
 |-----------------|-----------------------------| ----------------------------|
 | Slice LUTs      | 4708                        |       12421                 |
 | Lut as Logic    | 4610                        |        12532                |
@@ -235,7 +235,7 @@ A continuación, se muestra en una tabla los recursos empleados en la FPGA para 
 | Block Ram       | 8                           |         8                   |
 | DSP             | 24                          |         5                   |
 
-Como se aprecia, le versión de números flotantes emplea una mayor cantidad de LUTs, sin embargo, el empleo de DSP permite minimizar el empleo de estos recursos para la versión de números enteros. 
+Como se aprecia, le versión de números flotantes emplea una mayor cantidad de LUTs, sin embargo, la utilización de DSP permite minimizar el empleo de estos recursos para la versión de números enteros. 
 
 
 
