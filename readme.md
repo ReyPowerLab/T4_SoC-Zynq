@@ -19,15 +19,15 @@
   - [Resultados para la versión de números flotantes](#Resultados-para-la-versión-de-números-enteros)	 
   - [Tabla de comparación para ambas versiones](#Tabla-de-comparación-para-ambas-versiones)	 
 	  - [Información de contacto](#información-de-contacto)
-
+#
 ### Descripción
-
+&emsp;
 Este repositorio es un tutorial para la implementación de un coprocesador en la plataforma de desarrollo Zynq - 7000 de la Tarea 4, asignatura IPD432 (Diseño avanzado de sistemas digitales).	Se diseña en FPGA el cálculo de la distancia Euclidiana entre dos vectores con High-Level-Synthesis (HLS). El procesador ARM de la Zynq-7000 cumple el rol de host que solicita el servicio
 de procesamiento de vectores a un coprocesador especializado implementado en la FPGA (Programmable Logic o PL). El PS y el PL se comunican mediante un bus AXI4-Lite. El host  envía los datos al PL y recibe el resultado del cálculo de la distancia Euclidiana. Todas las tareas de procesamiento se implementan en el Soc., mientras que el computador externo se utiliza para configurar, depurar, y monitorear el PS a través de el protocolo de comunicación UART. La  configuración empleada para el PS es bare-metal.
 Se presentan dos versiones del cálculo de la distancia Euclidiana, se diseña un coprocesador paran números enteros de 32 bits, y se modifica el diseño para otra versión de coprocesador para operar con números flotantes de precisión simple. Además, se muestra la latencia obtenida de cada versión desde el momento en que el procesador comienza a enviar los datos hasta que tiene el resultado final.
-
+#
 ### Requisitos
-
+&emsp;
 Para reproducir los resultados obtenidos se requiere instalar los siguientes programas:
 - Vitis HLS: Herramienta de síntesis de alto nivel que permite mediante funciones en C y C++ desarrollar bloques IP en RTL  para diseños de hardware en Vivado. 
 
@@ -52,10 +52,11 @@ IMPORTANTE: Es posible que hasta la fecha Vitis HLS tenga problemas para exporta
 ```
 git clone https://github.com/ReyPowerLab/T4_SoC-Zynq
 ```
+#
 ### Números enteros
-
+&emsp;
 ### Vitis HLS 
-
+&emsp;
 Crear un projecto en Vitis:
 
 Se inicia Vitis HLS y se selecciona la opción Create Project, se le asigna un nombre y el directorio de localización del proyecto
@@ -99,9 +100,9 @@ Además, se muestran  los recursos estimados, la entrada y la salida del IP dise
 
 Finalmente, se exporta a RTL y en el directorio del proyecto, en \solution1\impl se encuentra la carpeta comprimida export. Esta carpeta debe ser descomprimida en un directorio especificado para posteriormente emplear en Vivado. En la carpeta IP_export_Vitis_HLS de este repositorio se encuentra el IP  exportado a RTL obtenido en Vitis HLS.
 
-
+#
 ### Vivado 
-
+&emsp;
 1. Crear un proyecto en Vivado: 
 Se inicia Vivado y se selecciona la opción Create Project, las opciones de configuración se dejan por defecto hasta llegar a la ventana para seleccionar la plataforma, en este caso se selecciona en la ventana de Boards la xc7z010clg400-1 como se muestra en la Figura:
 
@@ -154,9 +155,9 @@ Notar que el bloque concat se usa para conectar todas las interrupciones con el 
 
 
 10. Exportar el hardware con el archivo Bitstream en File/Export -> Export Hardware. Por defecto, el hardware se exporta dentro de la carpeta del proyecto con extensión .xsa. Este archivo se emplea para Vitis a continuación.
-
+#
 ### Xilinx Vitis 
-
+&emsp;
 1. Se crea un directorio para el proyecto de Xilinx Vitis y se copia el archivo. xsa generado del punto anterior, el archivo main.c de la carpeta de repositorio correspondiente a versión de enteros y el archivo Serialcmd.
 
 2. Cuando se abre Xilinx Vitis, selecciona el directorio de proyecto para definir el Workspace y clic en Launch.
@@ -180,7 +181,7 @@ Notar que el bloque concat se usa para conectar todas las interrupciones con el 
       <center></center>
 
 7. Escribir cmd en la barra de direcciones del proyecto en el Explorador Windows y ejecutar Python Serialcmd.py
-
+#
 ### Resultados para la versión de números enteros
 
 En los experimentos realizados se aprecia que la primera operación de vectores para el cálculo de la distancia euclidiana siempre demora tres o cuatro ciclos de reloj más que el resto de las operaciones:
@@ -189,7 +190,7 @@ En los experimentos realizados se aprecia que la primera operación de vectores 
       <center></center>
 
 ### Números flotantes
-
+#
 ### Vitis HLS 
 
 Para desarrollar la versión de números flotantes se sigue el mismo procedimiento descrito con algunas modificaciones. Cambiar el tipo de números de enteros a flotantes para la operación de la distancia euclidiana en FPGA no es trivial empleando SystemVerilog. La herramienta de Vitis HLS permite reducir el tiempo de diseño considerablemente empleando el lenguaje de programación C. En el código implementado solo se requiere cambiar la variable tipo int a float como se muestra en la figura:
@@ -198,30 +199,30 @@ Para desarrollar la versión de números flotantes se sigue el mismo procedimien
       <center></center>
 
 La elección del período de muestro fue de modo exploratorio, con la prioridad de minimizar la latencia para la mayor cantidad de elementos por vector. Se obtuvo un diseño final   para M = 384    con un período de muestreo de 25 ns. 
-
+#
 ### Vivado 
-
+&emsp;
 Se emplea el mismo procedimiento descrito en la versión de números enteros pero se importa el IP generado en Vitis HLS para la versión de números flotantes. El usuario puede implementar el hardware de interés en esta aplicación mediante los pasos descritos anteriormente, pero  por simplicidad, se incluye en el código el archivo .xsa generado por Vivado. Como se menciona anteriormente, este archivo es necesario para importar el IP personalizado e indicar los protocolos de comunicación y drivers para la Zybo en Xilinx Vitis.
-El archivo. xsa  en este repositorio es para M = 384. Si se desea implementar un diseño para un número menor de elementos se requiere desarrollar todos los pasos descritos anteriormente desde Vitis HLS.
+El archivo. xsa  en este repositorio para la versión de números flotantes es para M = 384. Si se desea implementar un diseño para un número menor de elementos se requiere desarrollar todos los pasos descritos anteriormente desde Vitis HLS.
 
-
+#
 ### Xilinx Vitis 
-
+&emsp;
 
 Para la versión de números flotantes se realizan los mismos pasos descritos anteriormente considerando el. xsa  exportado correspondiente.
 
-
+#
 ### Resultados para la versión de números flotantes
-
+&emsp;
 El código en Python es muy similar al desarrollado para la versión de números enteros. La diferencia se encuentra en la definición del tipo de variable flotante. 
 
 <center><img src="Figuras/float_result.PNG" width="50%"></center>
       <center></center>
 
 Los resultados muestran que para un test de 5 veces el cálculo de la distancia euclidiana la primera operación demora tres ciclos de reloj más que el resto de las operaciones. 
-
+#
 ### Tabla de comparación para ambas versiones
-
+&emsp;
 A continuación, se muestra en una tabla los recursos empleados en la FPGA para las versiones de números enteros y flotantes:
 
 | Recursos        | Números enteros (M = 1024)  | Números flotantes (M = 384) )
