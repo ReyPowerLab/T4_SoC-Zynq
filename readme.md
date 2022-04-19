@@ -114,7 +114,7 @@ A continuación, le debe quedar un resumen de proyecto como se muestra a continu
 <center><img src="Figuras/New Proyect Summary.PNG" width="70%"></center>
       <center></center>
 
-2. El diseño de hardware se realiza mediante los bloques IP disponibles en Vivado y el bloque IP de la distancia euclidiana importada desde Vitis HLS. Para crear el diseño en la ventana de navegación se importa el IP personalizado seleccionando la carpeta donde se encuentra el archivo descomprimido del bloque IP diseñado en Vitis HLS. El bloque IP personalizado para el cálculo de la distancia euclcidiana se añade al catálogo de IP en la ventana de navegación de Vivado. Mediante clic derecho se selecciona la opción add repository para seleccionar la carpeta. 
+2. El diseño de hardware se realiza mediante los bloques IP disponibles en Vivado y el bloque IP de la distancia Euclidiana importada desde Vitis HLS. Para crear el diseño en la ventana de navegación se importa el IP personalizado seleccionando la carpeta donde se encuentra el archivo descomprimido del bloque IP diseñado en Vitis HLS. El bloque IP personalizado para el cálculo de la distancia euclcidiana se añade al catálogo de IP en la ventana de navegación de Vivado. Mediante clic derecho se selecciona la opción add repository para seleccionar la carpeta. 
 
 <center><img src="Figuras/add_repository.PNG" width="40%"></center>
       <center></center>
@@ -184,7 +184,7 @@ Notar que el bloque concat se usa para conectar todas las interrupciones con el 
 #
 ### Resultados para la versión de números enteros
 
-En los experimentos realizados se aprecia que la primera operación de vectores para el cálculo de la distancia euclidiana siempre demora tres o cuatro ciclos de reloj más que el resto de las operaciones:
+En los experimentos realizados se aprecia que la primera operación de vectores para el cálculo de la distancia Euclidiana siempre demora tres o cuatro ciclos de reloj más que el resto de las operaciones:
 
 <center><img src="Figuras/Result_int.PNG" width="50%"></center>
       <center></center>
@@ -194,7 +194,7 @@ En los experimentos realizados se aprecia que la primera operación de vectores 
 
 ### Vitis HLS 
 
-Para desarrollar la versión de números flotantes se sigue el mismo procedimiento descrito con algunas modificaciones. Cambiar el tipo de números de enteros a flotantes para la operación de la distancia euclidiana en FPGA no es trivial empleando SystemVerilog. La herramienta de Vitis HLS permite reducir el tiempo de diseño considerablemente empleando el lenguaje de programación C. En el código implementado solo se requiere cambiar la variable tipo int a float como se muestra en la figura:
+Para desarrollar la versión de números flotantes se sigue el mismo procedimiento descrito con algunas modificaciones. Cambiar el tipo de números de enteros a flotantes para la operación de la distancia Euclidiana en FPGA no es trivial empleando SystemVerilog. La herramienta de Vitis HLS permite reducir el tiempo de diseño considerablemente empleando el lenguaje de programación C. En el código implementado solo se requiere cambiar la variable tipo int a float como se muestra en la figura:
 
 <center><img src="Figuras/float.PNG" width="50%"></center>
       <center></center>
@@ -220,7 +220,7 @@ El código en Python es muy similar al desarrollado para la versión de números
 <center><img src="Figuras/float_result.PNG" width="50%"></center>
       <center></center>
 
-Los resultados muestran que para un test de 5 veces el cálculo de la distancia euclidiana la primera operación demora tres ciclos de reloj más que el resto de las operaciones. 
+Los resultados muestran que para un test de 5 veces el cálculo de la distancia Euclidiana la primera operación demora tres ciclos de reloj más que el resto de las operaciones. 
 #
 ### Tabla de comparación para ambas versiones
 &emsp;
