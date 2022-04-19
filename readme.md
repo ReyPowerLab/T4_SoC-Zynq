@@ -97,7 +97,7 @@ Además, se muestran  los recursos estimados, la entrada y la salida del IP dise
 <center><img src="Figuras/Reporte_Vitis_HLS_int.PNG" width="70%"></center>
       <center></center> 
 
-Finalmente, se exporta a RTL y en el directorio del proyecto, en \solution1\impl se encuentra la carpeta comprimida export. Esta carpeta debe ser descomprimida en un directorio especificado para posteriormente emplear en Vivado.
+Finalmente, se exporta a RTL y en el directorio del proyecto, en \solution1\impl se encuentra la carpeta comprimida export. Esta carpeta debe ser descomprimida en un directorio especificado para posteriormente emplear en Vivado. En la carpeta IP_export_Vitis_HLS de este repositorio se encuentra el IP  exportado a RTL obtenido en Vitis HLS.
 
 
 ### Vivado 
