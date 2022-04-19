@@ -4,7 +4,6 @@
 
 ## Tabla de contenidos
 - [# SISTEMA HETEROGÉNEO EN SOC ZYNQ](#-SISTEMA-HETEROGÉNEO-EN-SOC-ZYNQ)
-- [Tabla de contenidos](#tabla-de-contenidos)
   - [Descripción](#descripción)
   - [Requisitos](#requisitos)
   - [Números enteros](#Números-enteros)
@@ -24,7 +23,7 @@
 ### Descripción
 
 Este repositorio es un tutorial para la implementación de un coprocesador en la plataforma de desarrollo Zynq - 7000 de la Tarea 4, asignatura IPD432 (Diseño avanzado de sistemas digitales).	Se diseña en FPGA el cálculo de la distancia Euclidiana entre dos vectores con High-Level-Synthesis (HLS). El procesador ARM de la Zynq-7000 cumple el rol de host que solicita el servicio
-de procesamiento de vectores a un coprocesador especializado implementado en la FPGA (Programmable Logic o PL). El PS y el PL se comunican mediante un bus AXI4-Lite. El host  envía los datos al PL,  y recibe el resultado. Todas las tareas de procesamiento se implementan en el Soc., mientras que el computador externo se utiliza para configurar, depurar, y monitorear el PS a través de el protocolo de comunicación UART. La  configuración empleada para el PS es bare-metal.
+de procesamiento de vectores a un coprocesador especializado implementado en la FPGA (Programmable Logic o PL). El PS y el PL se comunican mediante un bus AXI4-Lite. El host  envía los datos al PL y recibe el resultado del cálculo de la distancia Euclidiana. Todas las tareas de procesamiento se implementan en el Soc., mientras que el computador externo se utiliza para configurar, depurar, y monitorear el PS a través de el protocolo de comunicación UART. La  configuración empleada para el PS es bare-metal.
 Se presentan dos versiones del cálculo de la distancia Euclidiana, se diseña un coprocesador paran números enteros de 32 bits, y se modifica el diseño para otra versión de coprocesador para operar con números flotantes de precisión simple. Además, se muestra la latencia obtenida de cada versión desde el momento en que el procesador comienza a enviar los datos hasta que tiene el resultado final.
 
 ### Requisitos
@@ -38,7 +37,7 @@ Para reproducir los resultados obtenidos se requiere instalar los siguientes pro
 
 - Python: Para configurar, depurar, y monitorear el PS.
 
-- NUMPY library: Permite generar los vectores en la PC, calcular resultado esperado y la estadística de la latencia obtenida
+- NUMPY library: Permite generar los vectores en la PC, calcular resultado esperado y la estadística de la latencia obtenida.
 
 - pySerial: Para la comunicación serial entre la PC y la Zybo.
 
@@ -48,7 +47,7 @@ IMPORTANTE: Es posible que hasta la fecha Vitis HLS tenga problemas para exporta
 
 
 
- Clonar el repositorio a un directorio. Se recomienda que la dirección del directorio sea corta para evitar conflictos con los programas mencionados.
+ Clonar el repositorio a un directorio. Se recomienda que la dirección del directorio del proyecto no sea larga ni contenga caracteres especiales para evitar conflictos con los programas mencionados.
 
 ```
 git clone https://github.com/ReyPowerLab/T4_SoC-Zynq
@@ -70,19 +69,19 @@ Luego, en la ventana siguiente se agregan los códigos fuentes en C disponibles 
 - EucHW.h
 - specs
 
-Luego se especifica el código principal y dar siguiente. En la ventana a continuación se agregan los códigos de simulación:
+A continuación se especifica el código principal y clic en siguiente. Posteriormente se agregan los códigos de simulación:
 
 - EucSW.cpp
 - EucSW.h
 - EucTB.cpp
 
-A continuación, se selecciona el período de 14.28 ns y la plataforma de desarrollo:
+Luego, se selecciona el período de 14.28 ns y la plataforma de desarrollo:
 
 
 <center><img src="Figuras/Vitis_HLS_board.PNG" width="50%"></center>
       <center></center>
 
-Con los pasos previos se tiene el proyecto creado. Luego, en el fichero specs, definir el tipo de variables T y T2 como int para indicar que el diseño opera con números enteros. Además, indicar el valor de M con 1024. Los siguientes pasos son de simulación, síntesis y exportación a RTL. Estas opciones se encuentran en el menú desplegable en el ícono verde de la barra de herramientas que se muestra en la figura. Además, se muestran cinco resultados de simulación. Si se desea verificar un número mayor de veces los resultados de simulación, en el archivo EucTB.cpp se puede introducir a la variable test el número de simulación deseado.
+Con los pasos previos se tiene el proyecto creado. Luego, en el fichero specs, definir el tipo de variables T y T2 como int para indicar que el diseño opera con números enteros. Además, indicar el valor de M con 1024 para indicar el tamaño de los vectores. Los siguientes pasos son de simulación, síntesis y exportación a RTL. Estas opciones se encuentran en el menú desplegable en el ícono verde de la barra de herramientas que se muestra en la figura. Además, se muestran cinco resultados de simulación. Si se desea verificar un número mayor de veces los resultados de simulación, en el archivo EucTB.cpp se puede introducir a la variable test el número de simulación deseado.
 
 
 <center><img src="Figuras/Sim_Vitis_int.PNG" width="90%"></center>
