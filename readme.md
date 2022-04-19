@@ -113,7 +113,7 @@ A continuación, le debe quedar un resumen de proyecto como se muestra a continu
 <center><img src="Figuras/New Proyect Summary.PNG" width="70%"></center>
       <center></center>
 
-2. El diseño de hardware se realiza mediante los bloques IP disponibles en Vivado y el bloque IP de la distancia euclidiana importada desde Vitis HLS. Para crear el diseño en la ventana de navegación se importa el IP personalizado seleccionando la carpeta donde se encuentra el archivo descomprimido del bloque IP diseñado en Vitis HLS. Para añadir el IP se entra en el catálogo de IP en la ventana de navegación de Vivado y mediante clic derecho se selecciona la opción add repository para seleccionar la carpeta. 
+2. El diseño de hardware se realiza mediante los bloques IP disponibles en Vivado y el bloque IP de la distancia euclidiana importada desde Vitis HLS. Para crear el diseño en la ventana de navegación se importa el IP personalizado seleccionando la carpeta donde se encuentra el archivo descomprimido del bloque IP diseñado en Vitis HLS. El bloque IP personalizado para el cálculo de la distancia euclcidiana se añade al catálogo de IP en la ventana de navegación de Vivado. Mediante clic derecho se selecciona la opción add repository para seleccionar la carpeta. 
 
 <center><img src="Figuras/add_repository.PNG" width="40%"></center>
       <center></center>
@@ -144,9 +144,9 @@ Nota: Los puertos con propósitos personalizados se encuentran en desuso para es
       <center></center>
 Notar que el bloque concat se usa para conectar todas las interrupciones con el procesador.
 
-6. Se valida el diseño mediante Tools/ Validate  Design. La primera es posible que vez Vivado informe peligros en el diseño. Sin embargo, puede ser omitible y desaparecen si se valida por segunda vez. 
+6. Se valida el diseño mediante Tools/ Validate  Design. Es posible que vez Vivado informe warnings en el diseño. Sin embargo, puede ser omitible y desaparecen si se valida una segunda vez. 
 
-7. Crear HDL Wrapper en la ventana de sources haciendo clic derecho en design_1 y seleccionando la opción Let Vivado manage wrapper and auto-update
+7. Crear HDL Wrapper en la ventana de sources haciendo clic derecho en design_1 y seleccionando la opción Let Vivado manage wrapper and auto-update.
 
 8. En RTL ANALYSIS, en el Schematic, seleccionar el puerto gpio_rtl definido, luego en I/O Port Bus Properties, en I/O Ports   seleccionar en Package Pin A20 y B19 para cada puerto. Además, en I/O Std seleccionar LVCMOS33.  Luego guardar y cerrar el RTL ANALYSIS. Al guardar seleccionar un nombre para el fichero XDC.   
 
