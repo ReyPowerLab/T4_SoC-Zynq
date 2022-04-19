@@ -145,7 +145,7 @@ Nota: Los puertos con propósitos personalizados se encuentran en desuso para es
       <center></center>
 Notar que el bloque concat se usa para conectar todas las interrupciones con el procesador.
 
-6. Se valida el diseño mediante Tools/ Validate  Design. Es posible que vez Vivado informe warnings en el diseño. Sin embargo, puede ser omitible y desaparecen si se valida una segunda vez. 
+6. Se valida el diseño mediante Tools/ Validate  Design. Es posible que vez Vivado informe warnings en el diseño. Sin embargo, se puede despreciar y desaparecen si se valida una segunda vez. 
 
 7. Crear HDL Wrapper en la ventana de sources haciendo clic derecho en design_1 y seleccionando la opción Let Vivado manage wrapper and auto-update.
 
@@ -158,7 +158,7 @@ Notar que el bloque concat se usa para conectar todas las interrupciones con el 
 #
 ### Xilinx Vitis 
 &emsp;
-1. Se crea un directorio para el proyecto de Xilinx Vitis y se copia el archivo. xsa generado del punto anterior, el archivo main.c de la carpeta de repositorio correspondiente a versión de enteros y el archivo Serialcmd.
+1. Se crea un directorio para el proyecto de Xilinx Vitis y se copia el archivo. xsa generado del punto anterior, el archivo main.c de la carpeta de repositorio correspondiente a versión de enteros y el archivo Serialcmd. Además, se incluye  el archivo .xsa generado por Vivado.
 
 2. Cuando se abre Xilinx Vitis, selecciona el directorio de proyecto para definir el Workspace y clic en Launch.
 
@@ -189,8 +189,9 @@ En los experimentos realizados se aprecia que la primera operación de vectores 
 <center><img src="Figuras/Result_int.PNG" width="50%"></center>
       <center></center>
 
-### Números flotantes
 #
+### Números flotantes
+
 ### Vitis HLS 
 
 Para desarrollar la versión de números flotantes se sigue el mismo procedimiento descrito con algunas modificaciones. Cambiar el tipo de números de enteros a flotantes para la operación de la distancia euclidiana en FPGA no es trivial empleando SystemVerilog. La herramienta de Vitis HLS permite reducir el tiempo de diseño considerablemente empleando el lenguaje de programación C. En el código implementado solo se requiere cambiar la variable tipo int a float como se muestra en la figura:
