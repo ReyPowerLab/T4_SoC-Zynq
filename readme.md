@@ -203,14 +203,14 @@ La elección del período de muestro fue de modo exploratorio, con la prioridad 
 #
 ### Vivado 
 &emsp;
-Se emplea el mismo procedimiento descrito en la versión de números enteros pero se importa el IP generado en Vitis HLS para la versión de números flotantes. El usuario puede implementar el hardware de interés en esta aplicación mediante los pasos descritos anteriormente, pero  por simplicidad, se incluye en el código el archivo .xsa generado por Vivado. Como se menciona anteriormente, este archivo es necesario para importar el IP personalizado e indicar los protocolos de comunicación y drivers para la Zybo en Xilinx Vitis.
+Se emplea el mismo procedimiento descrito en la versión de números enteros pero se importa el IP generado en Vitis HLS para la versión de números flotantes.  Como se menciona anteriormente, este archivo es necesario para importar el IP personalizado e indicar los protocolos de comunicación y drivers para la Zybo en Xilinx Vitis.
 El archivo. xsa  en este repositorio para la versión de números flotantes es para M = 384. Si se desea implementar un diseño para un número menor de elementos se requiere desarrollar todos los pasos descritos anteriormente desde Vitis HLS.
 
 #
 ### Xilinx Vitis 
 &emsp;
 
-Para la versión de números flotantes se realizan los mismos pasos descritos anteriormente considerando el. xsa  exportado correspondiente.
+Para la versión de números flotantes se realizan los mismos pasos descritos anteriormente considerando el. xsa  exportado correspondiente. Se incluye en el código el archivo .xsa generado por Vivado.
 
 #
 ### Resultados para la versión de números flotantes
