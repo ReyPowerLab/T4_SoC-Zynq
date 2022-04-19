@@ -81,7 +81,7 @@ Luego, se selecciona el período de 14.28 ns y la plataforma de desarrollo:
 <center><img src="Figuras/Vitis_HLS_board.PNG" width="50%"></center>
       <center></center>
 
-Con los pasos previos se tiene el proyecto creado. Luego, en el fichero specs, definir el tipo de variables T y T2 como int para indicar que el diseño opera con números enteros. Además, indicar el valor de M con 1024 para indicar el tamaño de los vectores. Los siguientes pasos son de simulación, síntesis y exportación a RTL. Estas opciones se encuentran en el menú desplegable en el ícono verde de la barra de herramientas que se muestra en la figura. Además, se muestran cinco resultados de simulación. Si se desea verificar un número mayor de veces los resultados de simulación, en el archivo EucTB.cpp se puede introducir a la variable test el número de simulación deseado.
+Con los pasos previos se tiene el proyecto creado. Luego, en el fichero specs, definir el tipo de variables T y T2 como int para indicar que el diseño opera con números enteros. Además, indicar el valor de M con 1024 para indicar el tamaño de los vectores. Los siguientes pasos son de simulación, síntesis y exportación a RTL. Estas opciones se encuentran en el menú desplegable en el ícono verde (play) de la barra de herramientas que se muestra en la Figura. Además, se muestran cinco resultados de simulación. Si se desea verificar un número mayor de veces los resultados de simulación, en el archivo EucTB.cpp se puede introducir a la variable test el número de simulación deseado.
 
 
 <center><img src="Figuras/Sim_Vitis_int.PNG" width="90%"></center>
